@@ -69,12 +69,13 @@ describe("StableLayerSDK", () => {
       expect(btcUsdcCoin).toBeDefined();
       if (btcUsdcCoin) tx.transferObjects([btcUsdcCoin], TEST_ACCOUNT);
 
-      // Dev inspect the transaction to validate it's well-formed
-      const result = await suiClient.simulateTransaction({ transaction: tx });
+      // Dev inspect: validate tx is well-formed and execution would succeed
+      const result = await suiClient.simulateTransaction({
+        transaction: tx,
+        include: { effects: true },
+      });
       expect(result.$kind).toBe("Transaction");
-      if (result.$kind === "Transaction") {
-        expect(result.Transaction.status.success).toBe(true);
-      }
+      expect(result.Transaction?.effects?.status?.success).toBe(true);
     });
   });
 
@@ -101,11 +102,12 @@ describe("StableLayerSDK", () => {
 
       await sdk.buildBurnTx(params);
 
-      const result = await suiClient.simulateTransaction({ transaction: tx });
+      const result = await suiClient.simulateTransaction({
+        transaction: tx,
+        include: { effects: true },
+      });
       expect(result.$kind).toBe("Transaction");
-      if (result.$kind === "Transaction") {
-        expect(result.Transaction.status.success).toBe(true);
-      }
+      expect(result.Transaction?.effects?.status?.success).toBe(true);
     });
 
     it("should build a valid burn transaction with all flag", async () => {
@@ -119,11 +121,12 @@ describe("StableLayerSDK", () => {
 
       await sdk.buildBurnTx(params);
 
-      const result = await suiClient.simulateTransaction({ transaction: tx });
+      const result = await suiClient.simulateTransaction({
+        transaction: tx,
+        include: { effects: true },
+      });
       expect(result.$kind).toBe("Transaction");
-      if (result.$kind === "Transaction") {
-        expect(result.Transaction.status.success).toBe(true);
-      }
+      expect(result.Transaction?.effects?.status?.success).toBe(true);
     });
   });
 
@@ -138,11 +141,12 @@ describe("StableLayerSDK", () => {
 
       await sdk.buildClaimTx(params);
 
-      const result = await suiClient.simulateTransaction({ transaction: tx });
+      const result = await suiClient.simulateTransaction({
+        transaction: tx,
+        include: { effects: true },
+      });
       expect(result.$kind).toBe("Transaction");
-      if (result.$kind === "Transaction") {
-        expect(result.Transaction.status.success).toBe(true);
-      }
+      expect(result.Transaction?.effects?.status?.success).toBe(true);
     });
   });
 });
