@@ -126,10 +126,11 @@ const result = await suiClient.signAndExecuteTransaction({
 
 ### `new StableLayerClient(config)`
 
-| Parameter        | Type                     | Description            |
-| ---------------- | ------------------------ | ---------------------- |
-| `config.network` | `"mainnet" \| "testnet"` | Sui network            |
-| `config.sender`  | `string`                 | Default sender address |
+| Parameter         | Type                     | Description                                          |
+| ----------------- | ------------------------ | ---------------------------------------------------- |
+| `config.network`  | `"mainnet" \| "testnet"` | Sui network                                          |
+| `config.sender`   | `string`                 | Default sender address                               |
+| `config.baseUrl`  | `string` (optional)      | Custom RPC/gRPC endpoint. Defaults to fullnode URL.  |
 
 ### Transaction Methods
 

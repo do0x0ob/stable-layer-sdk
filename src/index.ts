@@ -24,7 +24,7 @@ export class StableLayerClient {
     this.bucketClient = new BucketClient({ network: config.network });
     this.suiClient = new SuiGrpcClient({
       network: config.network,
-      baseUrl: `https://fullnode.${config.network}.sui.io:443`,
+      baseUrl: config.baseUrl ?? `https://fullnode.${config.network}.sui.io:443`,
     });
     this.sender = config.sender;
   }
@@ -225,7 +225,14 @@ export class StableLayerClient {
       include: { json: true },
     });
 
-    const json = result.object?.json as
+    if (!result.object?.json) {
+      throw new Error(
+        `Dynamic field lookup failed for coin type ${stableCoinType}. ` +
+          `The coin type may not be registered in the stable registry.`,
+      );
+    }
+
+    const json = result.object.json as
       | { treasury_cap?: { total_supply?: { value?: string } } }
       | null
       | undefined;

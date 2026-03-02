@@ -72,9 +72,14 @@ describe("StableLayerSDK", () => {
       // Dev inspect the transaction to validate it's well-formed
       const result = await suiClient.simulateTransaction({ transaction: tx });
       expect(result.$kind).toBe("Transaction");
+      if (result.$kind === "Transaction") {
+        expect(result.Transaction.status.success).toBe(true);
+      }
     });
+  });
 
-    it("should throw error when neither amount nor all is provided for burn", async () => {
+  describe("buildBurnTx", () => {
+    it("should throw error when neither amount nor all is provided", async () => {
       const tx = new Transaction();
       const params: BurnTransactionParams = {
         tx,
@@ -84,9 +89,7 @@ describe("StableLayerSDK", () => {
 
       await expect(sdk.buildBurnTx(params)).rejects.toThrow("Amount or all must be provided");
     });
-  });
 
-  describe("buildBurnTx", () => {
     it("should build a valid burn transaction with amount", async () => {
       const tx = new Transaction();
       const params: BurnTransactionParams = {
@@ -100,6 +103,9 @@ describe("StableLayerSDK", () => {
 
       const result = await suiClient.simulateTransaction({ transaction: tx });
       expect(result.$kind).toBe("Transaction");
+      if (result.$kind === "Transaction") {
+        expect(result.Transaction.status.success).toBe(true);
+      }
     });
 
     it("should build a valid burn transaction with all flag", async () => {
@@ -115,6 +121,9 @@ describe("StableLayerSDK", () => {
 
       const result = await suiClient.simulateTransaction({ transaction: tx });
       expect(result.$kind).toBe("Transaction");
+      if (result.$kind === "Transaction") {
+        expect(result.Transaction.status.success).toBe(true);
+      }
     });
   });
 
@@ -131,6 +140,9 @@ describe("StableLayerSDK", () => {
 
       const result = await suiClient.simulateTransaction({ transaction: tx });
       expect(result.$kind).toBe("Transaction");
+      if (result.$kind === "Transaction") {
+        expect(result.Transaction.status.success).toBe(true);
+      }
     });
   });
 });

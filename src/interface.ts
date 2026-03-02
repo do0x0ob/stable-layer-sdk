@@ -3,6 +3,8 @@ import { Transaction, TransactionArgument, TransactionResult } from "@mysten/sui
 export interface StableLayerConfig {
   network: "mainnet" | "testnet";
   sender: string;
+  /** Optional custom RPC/gRPC endpoint URL. Defaults to fullnode.<network>.sui.io:443 */
+  baseUrl?: string;
 }
 
 export interface MintTransactionParams {
